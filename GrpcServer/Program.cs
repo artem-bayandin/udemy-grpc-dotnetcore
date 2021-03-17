@@ -3,6 +3,8 @@ using Deadlines;
 using ErrorsSample;
 using Greet;
 using Grpc.Core;
+using Grpc.Reflection;
+using Grpc.Reflection.V1Alpha;
 using GrpcServer.ServicesImplementations;
 using PrimeNumber;
 using System;
@@ -12,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace GrpcServer
 {
+    // Tool to view a list of grpc resources available (aka Swagger) :
+    // https://github.com/ktr0731/evans/releases
+
     class Program
     {
         const string Host = "127.0.0.1";
@@ -23,6 +28,16 @@ namespace GrpcServer
 
             try
             {
+                // reflection-1                
+                var reflectionServiceImpl = new ReflectionServiceImpl(
+                    GreetingService.Descriptor
+                    , CalculatorService.Descriptor
+                    , PrimeNumberDecompositionService.Descriptor
+                    , SqrtService.Descriptor
+                    , DeadlineService.Descriptor
+                    , ServerReflection.Descriptor
+                );
+
                 server = new Server
                 {
                     Services =
@@ -35,6 +50,9 @@ namespace GrpcServer
                         SqrtService.BindService(new SqrtServiceImplementation()),
                         // deadlines
                         DeadlineService.BindService(new DeadlineServiceImplementation()),
+
+                        // reflection-2
+                        ServerReflection.BindService(reflectionServiceImpl)
                     },
                     Ports =
                     {
