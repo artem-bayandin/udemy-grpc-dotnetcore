@@ -1,7 +1,7 @@
-﻿using Grpc.Core;
+﻿using Greet;
+using Grpc.Core;
 using System;
 using System.Threading.Tasks;
-using TestDeps;
 
 namespace GrpcClient
 {
@@ -21,7 +21,20 @@ namespace GrpcClient
                 }
             });
 
-            var client = new TestService.TestServiceClient(channel);
+            // var client = new TestService.TestServiceClient(channel);
+            var client = new GreetingService.GreetingServiceClient(channel);
+
+            var greeting = new Greeting
+            {
+                FirstName = "John",
+                LastName = "Doe"
+            };
+
+            var request = new GreetingRequest() { Greeting = greeting };
+
+            var response = await client.GreetAsync(request);
+
+            Console.Write($"Response received: {response.Result}");
 
             await channel.ShutdownAsync();
             Console.ReadLine();
