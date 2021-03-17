@@ -6,6 +6,7 @@ using Grpc.Core;
 using PrimeNumber;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GrpcClient
@@ -16,7 +17,14 @@ namespace GrpcClient
 
         static async Task Main(string[] args)
         {
-            Channel channel = new Channel(Target, ChannelCredentials.Insecure);
+            // ssl
+            var clientCert = await File.ReadAllTextAsync("ssl/client.crt");
+            var clientKey = await File.ReadAllTextAsync("ssl/client.key");
+            var caCrt = await File.ReadAllTextAsync("ssl/ca.crt");
+            var channelCredentials = new SslCredentials(caCrt, new KeyCertificatePair(clientCert, clientKey));
+
+            //Channel channel = new Channel(Target, ChannelCredentials.Insecure);
+            Channel channel = new Channel(Target, channelCredentials);
 
             await channel.ConnectAsync().ContinueWith(task =>
             {
@@ -30,7 +38,7 @@ namespace GrpcClient
             // var client = new TestService.TestServiceClient(channel);
 
             // 2. Greet unary
-            /*
+            
             var client = new GreetingService.GreetingServiceClient(channel);
 
             var greeting = new Greeting
@@ -42,7 +50,7 @@ namespace GrpcClient
             var request = new GreetingRequest() { Greeting = greeting };
 
             var response = await client.GreetAsync(request);
-            */
+            Console.WriteLine(response.Result);
 
             // 3. Sum
             /*
@@ -178,6 +186,7 @@ namespace GrpcClient
             */
 
             // 11. Deadlines
+            /*
             var client = new DeadlineService.DeadlineServiceClient(channel);
             try
             {
@@ -192,6 +201,7 @@ namespace GrpcClient
             {
                 Console.WriteLine($"Err: {e.Status.Detail}");
             }
+            */
 
             Console.WriteLine("Client is done");
             await channel.ShutdownAsync();

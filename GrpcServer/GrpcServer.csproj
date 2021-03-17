@@ -19,6 +19,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Ssl\ca.crt" />
+    <None Remove="Ssl\server.crt" />
+    <None Remove="Ssl\server.key" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Ssl\ca.crt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ssl\server.crt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ssl\server.key">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ProtoModels\" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@ using Grpc.Core;
 using GrpcServer.ServicesImplementations;
 using PrimeNumber;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -17,6 +18,11 @@ namespace GrpcServer
 
         static async Task Main(string[] args)
         {
+            var serverCert = await File.ReadAllTextAsync("ssl/server.crt");
+            var serverKey = await File.ReadAllTextAsync("ssl/server.key");
+            var caCrt = await File.ReadAllTextAsync("ssl/ca.crt");
+            var credentials = new SslServerCredentials(new List<KeyCertificatePair> { new KeyCertificatePair(serverCert, serverKey) }, caCrt, true);
+
             Server server = null;
 
             try
@@ -36,7 +42,8 @@ namespace GrpcServer
                     },
                     Ports =
                     {
-                        new ServerPort("localhost", Port, ServerCredentials.Insecure)
+                        //new ServerPort("localhost", Port, ServerCredentials.Insecure)
+                        new ServerPort("localhost", Port, credentials)
                     }
                 };
 
