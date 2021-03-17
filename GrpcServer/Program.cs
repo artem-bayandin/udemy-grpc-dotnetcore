@@ -1,4 +1,5 @@
 ﻿using Calculator;
+using ErrorsSample;
 using Greet;
 using Grpc.Core;
 using GrpcServer.ServicesImplementations;
@@ -26,6 +27,9 @@ namespace GrpcServer
                         GreetingService.BindService(new GreetingServiceImplementation()),
                         CalculatorService.BindService(new CalculatorServiceImplementation()),
                         PrimeNumberDecompositionService.BindService(new PrimeNumberDecompositionServiceImplementation()),
+                        
+                        // errors
+                        SqrtService.BindService(new SqrtServiceImplementation()),
                     },
                     Ports =
                     {

@@ -1,4 +1,5 @@
 ﻿using Calculator;
+using ErrorsSample;
 using Greet;
 using Grpc.Core;
 using PrimeNumber;
@@ -135,6 +136,7 @@ namespace GrpcClient
             */
 
             // 9. max number
+            /*
             var maxClient = new CalculatorService.CalculatorServiceClient(channel);
             var maxStream = maxClient.FindMax();
             var maxStreamReaderTask = Task.Run(async () =>
@@ -154,6 +156,23 @@ namespace GrpcClient
             }
             await maxStream.RequestStream.CompleteAsync();
             await maxStreamReaderTask;
+            */
+
+            // 10. Errors
+            var errorClient = new SqrtService.SqrtServiceClient(channel);
+            for (var i = 10; i > -5; i--)
+            {
+                try
+                {
+                    var result = await errorClient.SqrtAsync(new SqrtRequest { Number = i });
+                    Console.WriteLine($"Sqrt for {i} is {result}");
+                    await Task.Delay(400);
+                }
+                catch (RpcException ex)
+                {
+                    Console.WriteLine($"Error message: {ex.Message}, detail: {ex.Status.Detail}, status: {ex.Status}");
+                }
+            }
 
 
             Console.WriteLine("Client is done");
