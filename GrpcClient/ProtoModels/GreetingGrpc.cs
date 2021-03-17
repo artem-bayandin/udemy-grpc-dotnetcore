@@ -46,6 +46,8 @@ namespace Greet {
     static readonly grpc::Marshaller<global::Greet.GreetingResponse> __Marshaller_Greet_GreetingResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Greet.GreetingResponse.Parser));
     static readonly grpc::Marshaller<global::Greet.GreetManyTimesRequest> __Marshaller_Greet_GreetManyTimesRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Greet.GreetManyTimesRequest.Parser));
     static readonly grpc::Marshaller<global::Greet.GreetManyTimesResponse> __Marshaller_Greet_GreetManyTimesResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Greet.GreetManyTimesResponse.Parser));
+    static readonly grpc::Marshaller<global::Greet.LongGreetRequest> __Marshaller_Greet_LongGreetRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Greet.LongGreetRequest.Parser));
+    static readonly grpc::Marshaller<global::Greet.LongGreetResponse> __Marshaller_Greet_LongGreetResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Greet.LongGreetResponse.Parser));
 
     static readonly grpc::Method<global::Greet.GreetingRequest, global::Greet.GreetingResponse> __Method_Greet = new grpc::Method<global::Greet.GreetingRequest, global::Greet.GreetingResponse>(
         grpc::MethodType.Unary,
@@ -60,6 +62,13 @@ namespace Greet {
         "GreetManyTimes",
         __Marshaller_Greet_GreetManyTimesRequest,
         __Marshaller_Greet_GreetManyTimesResponse);
+
+    static readonly grpc::Method<global::Greet.LongGreetRequest, global::Greet.LongGreetResponse> __Method_LongGreet = new grpc::Method<global::Greet.LongGreetRequest, global::Greet.LongGreetResponse>(
+        grpc::MethodType.ClientStreaming,
+        __ServiceName,
+        "LongGreet",
+        __Marshaller_Greet_LongGreetRequest,
+        __Marshaller_Greet_LongGreetResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -113,6 +122,14 @@ namespace Greet {
       public virtual grpc::AsyncServerStreamingCall<global::Greet.GreetManyTimesResponse> GreetManyTimes(global::Greet.GreetManyTimesRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_GreetManyTimes, null, options, request);
+      }
+      public virtual grpc::AsyncClientStreamingCall<global::Greet.LongGreetRequest, global::Greet.LongGreetResponse> LongGreet(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return LongGreet(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncClientStreamingCall<global::Greet.LongGreetRequest, global::Greet.LongGreetResponse> LongGreet(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncClientStreamingCall(__Method_LongGreet, null, options);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override GreetingServiceClient NewInstance(ClientBaseConfiguration configuration)

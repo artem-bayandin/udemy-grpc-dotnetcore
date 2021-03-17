@@ -18,12 +18,12 @@ namespace GrpcServer.ServicesImplementations
                 {
                     await responseStream.WriteAsync(new DecompositionResponse { Divider = k });
                     value /= k;
+                    await Task.Delay(200);
                 }
                 else
                 {
                     k++;
                 }
-                await Task.Delay(150);
             }
         }
     }

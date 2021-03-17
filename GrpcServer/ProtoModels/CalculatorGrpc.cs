@@ -44,6 +44,8 @@ namespace Calculator {
 
     static readonly grpc::Marshaller<global::Calculator.SumRequest> __Marshaller_Calculator_SumRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.SumRequest.Parser));
     static readonly grpc::Marshaller<global::Calculator.SumResponse> __Marshaller_Calculator_SumResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.SumResponse.Parser));
+    static readonly grpc::Marshaller<global::Calculator.ComputeAverageRequest> __Marshaller_Calculator_ComputeAverageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageRequest.Parser));
+    static readonly grpc::Marshaller<global::Calculator.ComputeAverageResponse> __Marshaller_Calculator_ComputeAverageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageResponse.Parser));
 
     static readonly grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse> __Method_Sum = new grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse>(
         grpc::MethodType.Unary,
@@ -51,6 +53,13 @@ namespace Calculator {
         "Sum",
         __Marshaller_Calculator_SumRequest,
         __Marshaller_Calculator_SumResponse);
+
+    static readonly grpc::Method<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse> __Method_ComputeAverage = new grpc::Method<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse>(
+        grpc::MethodType.ClientStreaming,
+        __ServiceName,
+        "ComputeAverage",
+        __Marshaller_Calculator_ComputeAverageRequest,
+        __Marshaller_Calculator_ComputeAverageResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -67,6 +76,11 @@ namespace Calculator {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      public virtual global::System.Threading.Tasks.Task<global::Calculator.ComputeAverageResponse> ComputeAverage(grpc::IAsyncStreamReader<global::Calculator.ComputeAverageRequest> requestStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -74,7 +88,8 @@ namespace Calculator {
     public static grpc::ServerServiceDefinition BindService(CalculatorServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_Sum, serviceImpl.Sum).Build();
+          .AddMethod(__Method_Sum, serviceImpl.Sum)
+          .AddMethod(__Method_ComputeAverage, serviceImpl.ComputeAverage).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -84,6 +99,7 @@ namespace Calculator {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, CalculatorServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_Sum, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Calculator.SumRequest, global::Calculator.SumResponse>(serviceImpl.Sum));
+      serviceBinder.AddMethod(__Method_ComputeAverage, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse>(serviceImpl.ComputeAverage));
     }
 
   }
