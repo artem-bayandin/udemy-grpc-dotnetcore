@@ -46,6 +46,8 @@ namespace Calculator {
     static readonly grpc::Marshaller<global::Calculator.SumResponse> __Marshaller_Calculator_SumResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.SumResponse.Parser));
     static readonly grpc::Marshaller<global::Calculator.ComputeAverageRequest> __Marshaller_Calculator_ComputeAverageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageRequest.Parser));
     static readonly grpc::Marshaller<global::Calculator.ComputeAverageResponse> __Marshaller_Calculator_ComputeAverageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageResponse.Parser));
+    static readonly grpc::Marshaller<global::Calculator.FindMaxRequest> __Marshaller_Calculator_FindMaxRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.FindMaxRequest.Parser));
+    static readonly grpc::Marshaller<global::Calculator.FindMaxResponse> __Marshaller_Calculator_FindMaxResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.FindMaxResponse.Parser));
 
     static readonly grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse> __Method_Sum = new grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse>(
         grpc::MethodType.Unary,
@@ -60,6 +62,13 @@ namespace Calculator {
         "ComputeAverage",
         __Marshaller_Calculator_ComputeAverageRequest,
         __Marshaller_Calculator_ComputeAverageResponse);
+
+    static readonly grpc::Method<global::Calculator.FindMaxRequest, global::Calculator.FindMaxResponse> __Method_FindMax = new grpc::Method<global::Calculator.FindMaxRequest, global::Calculator.FindMaxResponse>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "FindMax",
+        __Marshaller_Calculator_FindMaxRequest,
+        __Marshaller_Calculator_FindMaxResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -113,6 +122,14 @@ namespace Calculator {
       public virtual grpc::AsyncClientStreamingCall<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse> ComputeAverage(grpc::CallOptions options)
       {
         return CallInvoker.AsyncClientStreamingCall(__Method_ComputeAverage, null, options);
+      }
+      public virtual grpc::AsyncDuplexStreamingCall<global::Calculator.FindMaxRequest, global::Calculator.FindMaxResponse> FindMax(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FindMax(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncDuplexStreamingCall<global::Calculator.FindMaxRequest, global::Calculator.FindMaxResponse> FindMax(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncDuplexStreamingCall(__Method_FindMax, null, options);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override CalculatorServiceClient NewInstance(ClientBaseConfiguration configuration)

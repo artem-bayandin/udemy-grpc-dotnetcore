@@ -95,6 +95,7 @@ namespace GrpcClient
             */
 
             // 7. calc average
+            /*
             var avgClient = new CalculatorService.CalculatorServiceClient(channel);
             var avgStream = avgClient.ComputeAverage();
             var rnd = new Random();
@@ -108,6 +109,52 @@ namespace GrpcClient
             await avgStream.RequestStream.CompleteAsync();
             var avgResponse = await avgStream.ResponseAsync;
             Console.WriteLine($"{avgResponse.Result} is an average for {String.Join(", ", avgList)}");
+            */
+
+            // 8. bi-di
+            /*
+            var bidiClient = new GreetingService.GreetingServiceClient(channel);
+            var bidiStream = bidiClient.GreetEveryone();
+            var bidiResponseReaderTask = Task.Run(async () =>
+            {
+                while (await bidiStream.ResponseStream.MoveNext())
+                {
+                    Console.WriteLine(bidiStream.ResponseStream.Current.Result);
+                }
+            });
+            var list = new List<string> { "John", "Bob", "Max", "Andrew", "Sheldon", "Julia", "Marlen", "Den", "Joseph", "Fisherman", "Dick" };
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item} has sent a greeting");
+                await bidiStream.RequestStream.WriteAsync(new GreetEveryoneRequest { Name = item });
+                await Task.Delay(345);
+            }
+
+            await bidiStream.RequestStream.CompleteAsync();
+            await bidiResponseReaderTask;
+            */
+
+            // 9. max number
+            var maxClient = new CalculatorService.CalculatorServiceClient(channel);
+            var maxStream = maxClient.FindMax();
+            var maxStreamReaderTask = Task.Run(async () =>
+            {
+                while (await maxStream.ResponseStream.MoveNext())
+                {
+                    Console.WriteLine($"Next max found: {maxStream.ResponseStream.Current.Max}");
+                }
+            });
+            for (var i = 0; i < 100; i++)
+            {
+                var testValue = new Random().Next(1, 100);
+                Console.WriteLine($"testing {testValue}");
+                var request = new FindMaxRequest { Value = testValue };
+                await maxStream.RequestStream.WriteAsync(request);
+                await Task.Delay(200);
+            }
+            await maxStream.RequestStream.CompleteAsync();
+            await maxStreamReaderTask;
+
 
             Console.WriteLine("Client is done");
             await channel.ShutdownAsync();

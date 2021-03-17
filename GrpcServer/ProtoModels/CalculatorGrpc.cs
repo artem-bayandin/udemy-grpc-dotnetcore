@@ -46,6 +46,8 @@ namespace Calculator {
     static readonly grpc::Marshaller<global::Calculator.SumResponse> __Marshaller_Calculator_SumResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.SumResponse.Parser));
     static readonly grpc::Marshaller<global::Calculator.ComputeAverageRequest> __Marshaller_Calculator_ComputeAverageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageRequest.Parser));
     static readonly grpc::Marshaller<global::Calculator.ComputeAverageResponse> __Marshaller_Calculator_ComputeAverageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.ComputeAverageResponse.Parser));
+    static readonly grpc::Marshaller<global::Calculator.FindMaxRequest> __Marshaller_Calculator_FindMaxRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.FindMaxRequest.Parser));
+    static readonly grpc::Marshaller<global::Calculator.FindMaxResponse> __Marshaller_Calculator_FindMaxResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calculator.FindMaxResponse.Parser));
 
     static readonly grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse> __Method_Sum = new grpc::Method<global::Calculator.SumRequest, global::Calculator.SumResponse>(
         grpc::MethodType.Unary,
@@ -60,6 +62,13 @@ namespace Calculator {
         "ComputeAverage",
         __Marshaller_Calculator_ComputeAverageRequest,
         __Marshaller_Calculator_ComputeAverageResponse);
+
+    static readonly grpc::Method<global::Calculator.FindMaxRequest, global::Calculator.FindMaxResponse> __Method_FindMax = new grpc::Method<global::Calculator.FindMaxRequest, global::Calculator.FindMaxResponse>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "FindMax",
+        __Marshaller_Calculator_FindMaxRequest,
+        __Marshaller_Calculator_FindMaxResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -81,6 +90,11 @@ namespace Calculator {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      public virtual global::System.Threading.Tasks.Task FindMax(grpc::IAsyncStreamReader<global::Calculator.FindMaxRequest> requestStream, grpc::IServerStreamWriter<global::Calculator.FindMaxResponse> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -89,7 +103,8 @@ namespace Calculator {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Sum, serviceImpl.Sum)
-          .AddMethod(__Method_ComputeAverage, serviceImpl.ComputeAverage).Build();
+          .AddMethod(__Method_ComputeAverage, serviceImpl.ComputeAverage)
+          .AddMethod(__Method_FindMax, serviceImpl.FindMax).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -100,6 +115,7 @@ namespace Calculator {
     {
       serviceBinder.AddMethod(__Method_Sum, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Calculator.SumRequest, global::Calculator.SumResponse>(serviceImpl.Sum));
       serviceBinder.AddMethod(__Method_ComputeAverage, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Calculator.ComputeAverageRequest, global::Calculator.ComputeAverageResponse>(serviceImpl.ComputeAverage));
+      serviceBinder.AddMethod(__Method_FindMax, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::Calculator.FindMaxRequest, global::Calculator.FindMaxResponse>(serviceImpl.FindMax));
     }
 
   }

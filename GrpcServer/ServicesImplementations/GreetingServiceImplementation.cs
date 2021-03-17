@@ -1,6 +1,7 @@
 ﻿using Greet;
 using Grpc.Core;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using static Greet.GreetingService;
@@ -43,6 +44,31 @@ namespace GrpcServer.ServicesImplementations
             }
 
             return new LongGreetResponse { Result = sb.ToString() };
+        }
+
+        // bi-di
+        public override async Task GreetEveryone(IAsyncStreamReader<GreetEveryoneRequest> requestStream, IServerStreamWriter<GreetEveryoneResponse> responseStream, ServerCallContext context)
+        {
+            var names = new List<string>();
+            var sb = new StringBuilder();
+            var run = true;
+
+            Task.Run(async () =>
+            {
+                while (run)
+                {
+                    var resp = new GreetEveryoneResponse { Result = new Random().Next(100, 999).ToString() };
+                    await responseStream.WriteAsync(resp);
+                    await Task.Delay(1000);
+                }
+            });
+
+            while (await requestStream.MoveNext())
+            {
+                Console.WriteLine(requestStream.Current.Name);
+            }
+
+            run = false;
         }
     }
 }
