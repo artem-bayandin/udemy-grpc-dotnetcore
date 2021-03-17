@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServer", "GrpcServer\Gr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proto", "Proto", "{3281D002-7ECB-4040-BD3B-B44D8374812B}"
 	ProjectSection(SolutionItems) = preProject
+		Calculator.proto = Calculator.proto
 		Greeting.proto = Greeting.proto
 		TestDeps.proto = TestDeps.proto
 	EndProjectSection

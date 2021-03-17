@@ -1,5 +1,7 @@
-﻿using Greet;
+﻿using Calculator;
+using Greet;
 using Grpc.Core;
+using GrpcServer.ServicesImplementations;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -20,7 +22,8 @@ namespace GrpcServer
                 {
                     Services =
                     {
-                        GreetingService.BindService(new GreetingServiceImplementation())
+                        GreetingService.BindService(new GreetingServiceImplementation()),
+                        CalculatorService.BindService(new CalculatorServiceImplementation())
                     },
                     Ports =
                     {
