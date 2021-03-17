@@ -1,4 +1,5 @@
 ﻿using Calculator;
+using Deadlines;
 using ErrorsSample;
 using Greet;
 using Grpc.Core;
@@ -30,6 +31,8 @@ namespace GrpcServer
                         
                         // errors
                         SqrtService.BindService(new SqrtServiceImplementation()),
+                        // deadlines
+                        DeadlineService.BindService(new DeadlineServiceImplementation()),
                     },
                     Ports =
                     {

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package Deadlines;
+
+message DeadlineRequest {
+	string name = 1;
+}
+
+message DeadlineResponse {
+	string result = 1;
+}
+
+service DeadlineService {
+	rpc DieOrNot (DeadlineRequest) returns (DeadlineResponse) { }
+}

@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proto", "Proto", "{3281D002-7ECB-4040-BD3B-B44D8374812B}"
 	ProjectSection(SolutionItems) = preProject
 		Calculator.proto = Calculator.proto
+		Deadlines.proto = Deadlines.proto
 		ErrorsSample.proto = ErrorsSample.proto
 		Greeting.proto = Greeting.proto
 		PrimeNumber.proto = PrimeNumber.proto

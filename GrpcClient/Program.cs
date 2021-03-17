@@ -1,4 +1,5 @@
 ﻿using Calculator;
+using Deadlines;
 using ErrorsSample;
 using Greet;
 using Grpc.Core;
@@ -159,6 +160,7 @@ namespace GrpcClient
             */
 
             // 10. Errors
+            /*
             var errorClient = new SqrtService.SqrtServiceClient(channel);
             for (var i = 10; i > -5; i--)
             {
@@ -173,7 +175,23 @@ namespace GrpcClient
                     Console.WriteLine($"Error message: {ex.Message}, detail: {ex.Status.Detail}, status: {ex.Status}");
                 }
             }
+            */
 
+            // 11. Deadlines
+            var client = new DeadlineService.DeadlineServiceClient(channel);
+            try
+            {
+                var response = await client
+                    .DieOrNotAsync(
+                        new DeadlineRequest { Name = "John Doe " },
+                        deadline: DateTime.UtcNow.AddMilliseconds(3000)
+                    );
+                Console.WriteLine($"Resp: {response.Result}");
+            }
+            catch (RpcException e) when (e.StatusCode == StatusCode.DeadlineExceeded)
+            {
+                Console.WriteLine($"Err: {e.Status.Detail}");
+            }
 
             Console.WriteLine("Client is done");
             await channel.ShutdownAsync();
