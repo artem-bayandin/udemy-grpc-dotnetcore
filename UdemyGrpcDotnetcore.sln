@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proto", "Proto", "{3281D002
 	ProjectSection(SolutionItems) = preProject
 		Calculator.proto = Calculator.proto
 		Greeting.proto = Greeting.proto
+		PrimeNumber.proto = PrimeNumber.proto
 		TestDeps.proto = TestDeps.proto
 	EndProjectSection
 EndProject

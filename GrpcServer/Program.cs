@@ -2,6 +2,7 @@
 using Greet;
 using Grpc.Core;
 using GrpcServer.ServicesImplementations;
+using PrimeNumber;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -23,7 +24,8 @@ namespace GrpcServer
                     Services =
                     {
                         GreetingService.BindService(new GreetingServiceImplementation()),
-                        CalculatorService.BindService(new CalculatorServiceImplementation())
+                        CalculatorService.BindService(new CalculatorServiceImplementation()),
+                        PrimeNumberDecompositionService.BindService(new PrimeNumberDecompositionServiceImplementation()),
                     },
                     Ports =
                     {
