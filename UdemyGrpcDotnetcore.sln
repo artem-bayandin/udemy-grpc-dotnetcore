@@ -22,6 +22,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Miscellaneous", "Miscellane
 		ssl.sh = ssl.sh
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogClient", "BlogClient\BlogClient.csproj", "{1AADB52C-E815-4DE8-8FA7-048F2CE31912}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogServer", "BlogServer\BlogServer.csproj", "{C2F42FE2-C470-4718-AF96-959A60363B94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlogProto", "BlogProto", "{DFACA484-11AA-4198-A6C6-0B11D3B9C7C9}"
+	ProjectSection(SolutionItems) = preProject
+		blog.proto = blog.proto
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +45,14 @@ Global
 		{86B0B8D9-137B-4761-B2F0-BAC44391CFD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86B0B8D9-137B-4761-B2F0-BAC44391CFD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86B0B8D9-137B-4761-B2F0-BAC44391CFD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AADB52C-E815-4DE8-8FA7-048F2CE31912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AADB52C-E815-4DE8-8FA7-048F2CE31912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AADB52C-E815-4DE8-8FA7-048F2CE31912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AADB52C-E815-4DE8-8FA7-048F2CE31912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F42FE2-C470-4718-AF96-959A60363B94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F42FE2-C470-4718-AF96-959A60363B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F42FE2-C470-4718-AF96-959A60363B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F42FE2-C470-4718-AF96-959A60363B94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
